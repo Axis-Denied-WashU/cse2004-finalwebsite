@@ -398,6 +398,15 @@ function App() {
     const [gameState, setGameState] = React.useState(OFF)
     const [difficulty, setDifficulty] = React.useState(1) // Normal difficulty
     const keys = React.useRef(0)
+
+    function preloadImage(url) {
+        const img = new Image();
+        img.src = url;
+    }
+    // We absolutely need to make sure these are available before the game starts!
+    // It causes weird visual artifacts otherwise.
+    let images = Array.from({length: 16}, (_, index) => `explosion/frame_${index+1}.png`)
+    images.forEach(preloadImage)
     
     function pickNextGame(){
         if(keys.current >= 5){
