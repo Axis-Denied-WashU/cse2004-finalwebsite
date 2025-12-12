@@ -12,7 +12,7 @@ function MainMenu({gameStarter, currentDifficulty, setCurrentDifficulty}) {
 function Leaderboard(){
     const [leaderboardData, setLeaderboardData] = React.useState([])
     const [currentPage, setCurrentPage] = React.useState(1)
-    const [filterDifficulty, setFilterDifficulty] = React.useState(0)
+    const [filterDifficulty, setFilterDifficulty] = React.useState(1)
     const entriesPerPage = 3
 
     function addDefaultLeaderboard(){
@@ -52,8 +52,7 @@ function Leaderboard(){
     
     // Filter entries by difficulty
     const filteredData = leaderboardData.filter(entry => {
-        // If entry doesn't have difficulty property, include it (for backwards compatibility)
-        return entry.difficulty === undefined || entry.difficulty === filterDifficulty
+        return entry.difficulty === filterDifficulty
     })
     
     // Reset to page 1 when filter changes
@@ -74,40 +73,40 @@ function Leaderboard(){
     
     
     return (
-        <div className="gamebg leaderBoard">
-            <div className="leaderboard-difficulty-selector">
+        <section className="gamebg leaderBoard">
+            <section className="leaderboard-difficulty-selector">
                 <p>Difficulty</p>
                 <div className="difficulty-buttons">
                     <LeaderboardDifficultyButton name="Easy" diff={0} currentDiff={filterDifficulty} diffsetter={setFilterDifficulty} accent="success" />
                     <LeaderboardDifficultyButton name="Normal" diff={1} currentDiff={filterDifficulty} diffsetter={setFilterDifficulty} accent="warning" />
                     <LeaderboardDifficultyButton name="Hard" diff={2} currentDiff={filterDifficulty} diffsetter={setFilterDifficulty} accent="danger" />
                 </div>
-            </div>
+            </section>
             {filteredData.length === 0 ? (
-                <div className="leaderboard-empty">No entries yet. Start playing!</div>
+                <p className="leaderboard-empty">No entries yet. Start playing!</p>
             ) : (
                 <>
-                    <div className="leaderboard-header">
+                    <header className="leaderboard-header">
                         <span className="leaderboard-rank">Rank</span>
                         <span className="leaderboard-name">Name</span>
                         <span className="leaderboard-time">Time</span>
-                    </div>
-                    <div className="leaderboard-entries">
+                    </header>
+                    <ul className="leaderboard-entries">
                         {currentEntries.map((entry, index) => {
                             const globalIndex = startIndex + index
                             // Best time is the first entry in the filtered data (index 0)
                             const isBestTime = globalIndex === 0 && filteredData.length > 0
                             return (
-                                <div key={globalIndex} className={`leaderboard-entry ${isBestTime ? 'leaderboard-gold' : ''}`}>
+                                <li key={globalIndex} className={`leaderboard-entry ${isBestTime ? 'leaderboard-gold' : ''}`}>
                                     <span className="leaderboard-rank">#{globalIndex + 1}</span>
                                     <span className="leaderboard-name">{entry.name || 'Anonymous'}</span>
                                     <span className="leaderboard-time">{formatTime(entry.time)}</span>
-                                </div>
+                                </li>
                             )
                         })}
-                    </div>
+                    </ul>
                     {totalPages > 1 && (
-                        <div className="leaderboard-pagination">
+                        <nav className="leaderboard-pagination">
                             <button 
                                 className="pagination-btn" 
                                 onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
@@ -123,11 +122,11 @@ function Leaderboard(){
                             >
                                 Next
                             </button>
-                        </div>
+                        </nav>
                     )}
                 </>
             )}
-        </div>
+        </section>
     )
 }
 
@@ -137,7 +136,7 @@ function LeaderboardDifficultyButton({diff, currentDiff, diffsetter, accent, nam
             disabled={diff == currentDiff} 
             type="button" 
             onClick={()=>diffsetter(diff)} 
-            className={`btn btn-${diff == currentDiff ? "primary" : accent}`}
+            className={`btn btn-${diff == currentDiff ? "dark" : accent}`}
         >
             {name}
         </button>
@@ -263,10 +262,10 @@ function Background(){
 
 function MenuToggleButtons({gameState, setGameState}){
     return (
-        <div className="menu-toggle-buttons">
+        <nav className="menu-toggle-buttons">
             <button className={`menu-toggle-btn${gameState == MAIN_MENU ? ' active' : ''}`} onClick={() => setGameState(MAIN_MENU)}>Menu</button>
             <button className={`menu-toggle-btn${gameState == LEADERBOARD ? ' active' : ''}`} onClick={() => setGameState(LEADERBOARD)}>Leaderboard</button>
-        </div>
+        </nav>
     )
 }
 
