@@ -354,10 +354,13 @@ function WinnerScreen({currentTime, setGameState, difficulty}){
                 ];
                 const leaderboard = JSON.parse(localStorage.getItem('keyware_leaderboard')) || defaultLeaderboard
                 let found = false
-                for (index in leaderboard) {
-                    entry = leaderboard[index];
+                for (let index in leaderboard) {
+                    let entry = leaderboard[index];
                     if (entry.name == playerName && entry.difficulty == difficulty){
-                        entry.time = currentTime.current
+                        if(entry.time > currentTime.current){
+                            // If they already have a time, but its better, just keep that one.
+                            entry.time = currentTime.current
+                        }
                         found = true
                         break
                     }
