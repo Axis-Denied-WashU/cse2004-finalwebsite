@@ -353,7 +353,18 @@ function WinnerScreen({currentTime, setGameState, difficulty}){
                     {name: "Axis-Denied", difficulty: 2, time: 46.351}
                 ];
                 const leaderboard = JSON.parse(localStorage.getItem('keyware_leaderboard')) || defaultLeaderboard
-                leaderboard.push({name: playerName, difficulty: difficulty, time: currentTime.current})
+                let found = false
+                for (index in leaderboard) {
+                    entry = leaderboard[index];
+                    if (entry.name == playerName && entry.difficulty == difficulty){
+                        entry.time = currentTime.current
+                        found = true
+                        break
+                    }
+                }
+                if(!found){
+                    leaderboard.push({name: playerName, difficulty: difficulty, time: currentTime.current})
+                }
                 localStorage.setItem('keyware_leaderboard', JSON.stringify(leaderboard))
             }catch(e){
                 console.error('Error adding player to leaderboard:', e)
