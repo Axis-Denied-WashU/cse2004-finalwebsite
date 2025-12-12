@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KeyWare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Happy+Monkey&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="root"></div>
+    
+    
+    <script type="text/babel" src="flashlight.jsx">
+    </script>
+    <script type="text/babel" src="acme.jsx">
+    </script>
+    <script type="text/babel" src="sweeper.jsx">
+    </script>
+    <script type="text/babel" src="games.jsx">
+    </script>
+    <script type="text/babel" src="difficulty.jsx">
+    </script>
+    <script type="text/babel" src="main.jsx">
+    </script>
+    
+    <script type="text/babel">
+        
+        const container = document.getElementById('root')
+
+        // create the "root" of the component tree
+        // this tells React to take over the management of a specific part of the DOM
+        // a full-fledged React app usually has one root
+        // but a page using "sprinkles" of React can have multiple independent roots for different sections
+        const root = ReactDOM.createRoot(container)
+
+        // render our component into the root
+        root.render(<App />)
+    </script>
+</body>
